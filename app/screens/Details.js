@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
+import { Avatar } from 'react-native-elements';
+import { Header } from '../components/UserDetails';
+import colors from '../config/colors';
+import { capitalizeFirstLetter } from '../helpers/string';
 
 export default class Details extends Component {
     render() {
+        let navParams = this.props.navigation.state.params;
+        const name = `${capitalizeFirstLetter(navParams.name.first)}  ${capitalizeFirstLetter(navParams.name.last)}`;
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'yellow' }}>
-                <Text>Details Screen</Text>
-            </View>
+            <ScrollView style={{backgroundColor: colors.background }}>
+                <Header {...navParams} />
+            </ScrollView>
         )
     }
 }
