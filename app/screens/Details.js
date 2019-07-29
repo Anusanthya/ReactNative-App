@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { Avatar } from 'react-native-elements';
-import { Header } from '../components/UserDetails';
+import { Header, Actions } from '../components/UserDetails';
 import colors from '../config/colors';
 import { capitalizeFirstLetter } from '../helpers/string';
 
@@ -12,6 +11,7 @@ export default class Details extends Component {
         return (
             <ScrollView style={{backgroundColor: colors.background }}>
                 <Header {...navParams} />
+                <Actions {...navParams}/>
             </ScrollView>
         )
     }
