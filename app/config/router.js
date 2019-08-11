@@ -13,7 +13,6 @@ export const Screens = {
     Details: {
         screen: Details,
         navigationOptions: ({ navigation }) => {
-        console.log('-- navigation props -- ', navigation.state.params)
         return {
             title: `${capitalizeFirstLetter(navigation.state.params.name.first)} ${capitalizeFirstLetter(navigation.state.params.name.last)}`
         }
