@@ -1,27 +1,38 @@
 import React from 'react';
-import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
+import { Platform } from 'react-native';
+import { createStackNavigator, createAppContainer, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Screens, Root } from './config/router';
 import NewContact from './screens/NewContact';
 import Me from './screens/Me';
+import { DrawerButton } from './components/Header';
+
+export const LeftDrawerButton = ({ navigation }) => {
+    if (Platform.OS === 'android') {
+        return <DrawerButton onPress={() => navigation.openDrawer()} />
+    };
+    return null;
+};
 
 const AppNavigator = createStackNavigator(Screens, Root);
 
 export const NewContactStack = createStackNavigator({
     NewContact: {
         screen: NewContact,
-        navigationOptions: {
+        navigationOptions: (props) => ({
             headerTitle: 'New Contact',
-        }
+            headerLeft: <LeftDrawerButton {...props} />,
+        })
     }
 });
 
 export const MeStack = createStackNavigator({
     Me: {
         screen: Me,
-        navigationOptions: {
+        navigationOptions: (props) => ({
             headerTitle: 'Me',
-        }
+            headerLeft: <LeftDrawerButton {...props} />,
+        }),
     }
 })
 
@@ -47,9 +58,32 @@ const Tabs = createBottomTabNavigator({
             tabBarIcon: ({ tintColor }) => <Icon name="ios-contact" size={35} color={tintColor} />
         }
     }
-})
+});
 
-const AppContainer = createAppContainer(Tabs);
+export const Drawer = createDrawerNavigator({
+    Contacts: {
+        screen: AppNavigator,
+        navigationOptions: {
+            drawerLabel: 'Contacts',
+        }
+    },
+    NewContact: {
+        screen: NewContactStack,
+        navigationOptions: {
+            drawerLabel: 'New Contact',
+        }
+    },
+    Me: {
+        screen: MeStack,
+        navigationOptions: {
+            drawerLabel: 'Me',
+        }
+    }
+});
+
+const TabsOrDrawer = Platform.OS == 'ios' ? Tabs : Drawer;
+
+const AppContainer = createAppContainer(TabsOrDrawer);
 
 const App = () => {
     return <AppContainer />;

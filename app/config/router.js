@@ -2,13 +2,15 @@ import React from 'react';
 import Contacts from '../screens/Contacts';
 import Details from '../screens/Details';
 import { capitalizeFirstLetter } from '../helpers/string';
+import { LeftDrawerButton } from '../index';
 
 export const Screens = {
     Contacts: {
         screen: Contacts,
-        navigationOptions: {
-            title: 'Contacts'
-        }
+        navigationOptions: (props) => ({
+            title: 'Contacts',
+            headerLeft: <LeftDrawerButton {...props} />,
+        })
     },
     Details: {
         screen: Details,
