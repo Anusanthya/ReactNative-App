@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView } from 'react-native';
+import { me } from '../config/data';
+import { Header, Actions, Info } from '../components/UserDetails';
+import colors from '../config/colors';
+import { PrimaryButton } from '../components/Buttons';
 
 export default class Me extends Component {
     render() {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'yellow' }}>
-                <Text>Me Screen</Text>
-            </View>
+            <ScrollView style={{ backgroundColor: colors.background }}>
+                <Header {...me} />
+                <PrimaryButton label='Edit Profile' onPress={() => null} />
+                <Actions {...me} />
+                <Info {...me} />
+            </ScrollView>
         )
     }
 }
